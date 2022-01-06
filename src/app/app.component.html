@@ -1,0 +1,188 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+    <span class="backspace">
+        <svg id="svg8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365.5 592" width="33">
+            <style>
+                .st0 {
+                    fill: #8a8a8a
+                }
+
+                .st1 {
+                    fill: #000000b4
+                }
+
+                .st2 {
+                    fill: #8a8a8a
+                }
+            </style>
+            <g id="layer5">
+                <g id="g1627">
+                    <path id="path1599" class="st0"
+                        d="M0 322.4c64.4 34.2 131.6 70 183.5 97.7l182-97.7c-65.9 97.9-120.8 179.4-182 269.6C122.2 502 54.5 402.7 0 322.4zm7-27l176.7-94.3 174.4 93.6-174.3 94.4L7 295.4zm176.5-124.5L0 267.5 182.7 0l182.8 268.1-182-97.2z" />
+                    <path id="path1593" class="st1"
+                        d="M183.5 420.1l182-97.7c-65.9 97.9-182 269.6-182 269.6V420.1zm.2-219l174.4 93.6-174.3 94.4-.1-188zm-.2-30.2L182.7 0l182.8 268.1-182-97.2z" />
+                    <path id="path1603" class="st1" d="M7 295.4l176.7 14.5 174.4-15.1-174.3 94.4L7 295.4z" />
+                    <path id="path1606" class="st2" d="M183.7 309.9l174.4-15.1-174.3 94.4-.1-79.3z" />
+                </g>
+            </g>
+        </svg>
+    </span>
+    <span class="backspace">
+        <h2>Estado: {{msgEstado}}</h2>
+    </span>
+
+    <div *ngIf="!estado" class="backspace">
+
+        <button class="button" style="vertical-align:middle" (click)="conectar()"><span>Conectar</span></button>
+
+    </div>
+</div>
+
+<div class="content" role="main">
+    <!-- Highlight Card -->
+    <div>
+        <img src="assets\the-6th-logo.jpg" width="110">
+        <h1>RunCoin</h1>
+
+    </div>
+
+
+
+    <div class="contentReloj">
+        <div class="content-timer">
+            <div class="content-h">
+                <div class="time">{{ hours | number:'2.0'}}<span>:</span></div>
+
+
+            </div>
+            <div class="content-m">
+                <div class="time">{{ minutes | number:'2.0'}}<span>:</span></div>
+
+            </div>
+            <div class="content-s">
+                <div class="time">{{seconds | number:'2.0'}}</div>
+
+            </div>
+        </div>
+        <div class="textmini">Duracion</div>
+        <div class="content-btn-action">
+            <button class="buttonReloj" (click)="start()">&#9658;</button>
+            <button class="buttonReloj" (click)="stop()">&#9724;</button>
+            <button class="buttonReloj" (click)="reset()">&#8635;</button>
+        </div>
+    </div>
+
+
+    <div class="cardLateral">
+       
+            <div class="textsaldo">RNC obtenido</div>
+            <div>
+                <div class="textoNormal">Acumulado: </div>
+                <div class="textoNormal">{{contador2 | number:'1.0'}}</div>
+            </div>
+            <div>
+                <div class="textoNormal">Ganado: </div>
+                <div class="textoNormal">{{tokensRNC | number:'1.0'}}</div>
+            </div>
+            
+       
+    </div>
+
+    <div class="cardLateral">
+        <form [formGroup]="transferirFromForm">
+            <h1 class="textsaldo">Enviar tokens a cuenta:</h1>
+            <h4 >Adress principal: 0xdAD505088d0319d44698...</h4>
+            <br> Address Destino: <input type="text" class="form-control" formControlName="addressDestinoFrom">
+            <br><button (click)="aprovarUsoDeTokens()">Transferir</button>
+            <br>
+            <p>{{resultTransferenciaAprobada}}</p>
+        </form>
+    </div>
+
+    <div class="cardLateral">
+        <form [formGroup]="transferirForm">
+            <h1 class="textsaldo">Transefir Tokens:</h1>
+            
+            <button  (click)="checarBalance()" class ="button2">Actualizar</button>
+            <p class="h5">Saldo actual:</p>
+            <p class="h5">{{balanceOf}}</p> <!-- Estado de cuenta-->
+            <br> Address Destino: <input type="text" class="form-control" formControlName="addressDestino">
+            <br><p class="h5">cantidad:</p>  <input type="text" class="form-control" formControlName="cantidadTokens">
+            <br><button (click)="transferirTokens()">Transferir</button>
+            <br>
+            <p>{{resultTransferencia}}</p>
+        </form>
+    </div>
+
+    
+   
+  <!-- Footer -->
+  <div class= "textsaldo">Transacciones realizadas:</div>
+  <div class="card-container" #scrollframe style="overflow: scroll; height: 500px;">    
+    <table style="border: 1px solid;">
+      <thead>
+        <tr>
+          <th *ngFor="let cabecera of cabeceras; let i = index" scope="col">{{cabecera}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let el of elementos; let i = index"  class="item" #item>         
+          <td>{{el.transactionHash}}</td>
+          <td>{{el.blockNumber}}</td>
+          <td>{{el.valor}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+       
+
+
+ <!--- <br><br><br>
+    <br><br><br>
+    <div class="card">
+        <form [formGroup]="aprovarForm">
+            <h1 class="tituloCarta">Aprovar el uso de Tokens:</h1>
+            <br> Address que se Aprobará: <input type="text" class="form-control" formControlName="addressAprobar">
+            <br> Cantidad de Tokens: <input type="text" class="form-control" formControlName="cantidadTokens">
+            <br><button (click)="aprovarUsoDeTokens()">Aprobar</button>
+            <br>
+            <p>{{resultAprove}}</p>
+        </form>
+    </div>
+
+    <br><br><br>
+   
+
+    <br><br><br>
+    <div class="card">
+        <form [formGroup]="transferirFromForm">
+            <h1 class="tituloCarta">Transefir Tokens que tienes aprobados:</h1>
+            <br> Address Remitente: <input type="text" class="form-control" formControlName="addressRemitenteFrom">
+            <br> Address Destino: <input type="text" class="form-control" formControlName="addressDestinoFrom">
+            <br> Cantidad de Tokens: <input type="text" class="form-control" formControlName="cantidadTokensFrom">
+            <br><button (click)="transferirTokensAprobados()">Transferir</button>
+            <br>
+            <p>{{resultTransferenciaAprobada}}</p>
+        </form>
+    </div>
+
+
+     Footer -->
+   
+       
+   
+
+
+
+</div>
